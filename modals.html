@@ -1,0 +1,162 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modals</title>
+    <style>
+      body {
+        font-family: "Helvetica", "Arial", sans-serif;
+      }
+
+      h1 {
+        color: #333;
+        text-align: center;
+        margin: 50px 0;
+        background-color: transparent;
+      }
+
+      .img_wrapper {
+        width: 80%;
+        height: auto;
+        margin: 0 10%;
+      }
+
+      span img {
+        width: 40%;
+        height: 300px;
+        float: left;
+        margin: 10px;
+        cursor: pointer;
+        border: none;
+        background-color: #f2f2f2;
+      }
+
+      .modal_bg {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s, opacity 0.5s;
+      }
+
+      .bg-active {
+        transition: 1s;
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .modal {
+        position: relative;
+        background: #fff;
+        width: auto;
+        height: auto;
+        padding: 5%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-direction: column;
+      }
+
+      .imgTitle,
+      #caption {
+        margin: 25px 0;
+      }
+    </style>
+
+    <script>
+      window.onload = function () {
+        //List all variables needed
+        let images = document.querySelectorAll("img");
+        let imgTitle = document.querySelector(".imgTitle");
+        let modalImg = document.querySelector(".modal-img");
+        let modalBg = document.querySelector(".modal_bg");
+        let captionText = document.getElementById("caption");
+        let img;
+
+        //Add a click event listener on each image
+        for (img = 0; img < images.length; img++) {
+          images[img].addEventListener("click", populateModal);
+        }
+
+        //If an image is clicked populate the modal
+        function populateModal() {
+          if (!images) {
+            return false;
+          } else {
+            modalBg.classList.add("bg-active");
+            imgTitle.innerHTML = this.title;
+            modalImg.src = this.src;
+            captionText.innerHTML = this.alt;
+          }
+          return false;
+        }
+
+        //Removes the modal once the body is clicked on
+        modalBg.addEventListener("click", (e) => {
+          if (e.target == modalBg) {
+            modalBg.classList.remove("bg-active");
+          }
+        });
+      };
+    </script>
+  </head>
+  <body>
+    <h1>MODALS</h1>
+    <div class="img_wrapper">
+      <span>
+        <img
+          src="images/mountain.jpg"
+          title="TITLE ONE"
+          description="DESCRIPTION ONE"
+          alt="ROCKIES"
+        />
+      </span>
+    </div>
+    <div class="img_wrapper">
+      <span>
+        <img
+          src="images/mountain_2.jpg"
+          title="TITLE TWO"
+          description="DESCRIPTION TWO"
+          alt="HYMALAYAS"
+        />
+      </span>
+    </div>
+    <div class="img_wrapper">
+      <span>
+        <img
+          src="images/mountain_3.jpg"
+          title="TITLE THREE"
+          description="DESCRIPTION THREE"
+          alt="ANDES"
+        />
+      </span>
+    </div>
+    <div class="img_wrapper">
+      <span>
+        <img
+          src="images/mountain_4.jpg"
+          title="TITLE FOUR"
+          description="DESCRIPTION FOUR"
+          alt="ALPS"
+        />
+      </span>
+    </div>
+    <!-- THE MODAL -->
+    <div class="modal_bg">
+      <div class="modal">
+        <span class="imgTitle"></span>
+        <img class="modal-img" />
+        <div id="caption"></div>
+      </div>
+    </div>
+  </body>
+</html>
